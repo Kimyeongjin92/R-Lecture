@@ -1,0 +1,45 @@
+#R은 java,c#와 달리 Data Type(해석방법이 다르기때문)에 상관없다.
+  
+### 1. 산술연산자(+ - * / %/% %% ^) ==================================================
+
+print(5%/%2) #나눗셈의 몫
+print(5%%2)  #나눗셈의 나머지 ( [x%%3=0]의 식을 이용해서 x값이 3의 배수인지 확인가능.)
+
+# 1e+06(1000000) = 0이 6개 / 1e-06(0.000001) 소수점 6자리까지 표시
+
+  
+### 2. 문자형 숫자형 데이터 ==========================================================
+
+'first' ; "first" ; first #앞의 2개는 문자, 뒤 first는 변수(x) 이름으로 인식이 된다.
+
+as.numeric('1')+as.numeric('3') #숫자처럼 보이는 문자를 숫자로 변경해주는 명령어
+
+class(1) ; class('1') # 문자,숫자인지 알려준다. (Data Type : numeric, character, logical)
+
+  
+### 3. TRUE, FALSE 값(진리값) ========================================================
+
+# $ (and, *, 둘다), | (or, +, 둘중 하나라도), ! (not, 반대) 
+3&0; 3&1; 3&2; 3|0; 3|1; !0; !1; !3
+
+  
+### 4. NA(잘못된 값일 경우), NULL(값이 없을 경우) ====================================
+
+cat(1,NA,2) ; cat(1,NULL,2)
+sum(1,NA,2) ; sum(1,NULL,2) 
+sum(1,NA,2,na.rm=T) #na.rm=T는 결측치를 없애준다.
+
+
+### 5. 범주형 데이터 csv(comma separated values) ====================================
+
+setwd("D:/dudwlsrla92/R_Data_Analysis/Part3/data")
+txt1<-read.csv("factor_test.txt")
+txt1
+
+factor1<-factor(txt1$blood)
+gender1<-factor(txt1$sex)
+summary(factor1) 
+summary(gender1)
+View(txt1)
+
+stringsAsFactors=FALSE
