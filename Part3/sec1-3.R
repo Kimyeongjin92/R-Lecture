@@ -1,0 +1,20 @@
+#빅데이터를 활용한 스마트 데이터 전문가 양성과정 2019-05-29(수)
+#R은 Interpret방식(ex:java는 Compile방식)
+setwd("D:/dudwlsrla92/R_Data_Analysis/Part3/data") #
+getwd() #current working directory
+
+'test'
+# R을 사용하면서 주의할 점 
+# 1) Indentation: 조건식, 반복문, 함수 등
+# 2) Comment: 주석을 알기쉽게 필기.
+
+### Print와 Cat (출력하기) =======================================================
+
+print(3) ; print(1+2) ; print('a') ; a<-3 ; print(a+3) ; print(pi)
+print(pi,digits=4) # 소수점일 경우 총 7자리로 출력되기 때문에 digits로 자리수 지정.
+
+cat(1,':','a','\n',2,':','b') #\n 줄바꾸기.
+cat(1,'\n',2,'\n',3,'\n',4)
+#print함수는 2개 이상 출력할 때 에러가 나기 때문에 cat함수를 쓴다.
+
+###  ===========================================================
