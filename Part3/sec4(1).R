@@ -42,9 +42,8 @@ sum(1,NA,2,na.rm=T) #na.rm=T는 결측치를 없애준다.
 
 setwd("D:/dudwlsrla92/R_Data_Analysis/Part3/data")
 txt1<-read.csv("factor_test.txt")
-txt1
 
-factor1<-factor(txt1$blood)
+factor1<-factor(txt1$blood) #factor 범주형 데이터
 gender1<-factor(txt1$sex)
 summary(factor1) 
 summary(gender1)
