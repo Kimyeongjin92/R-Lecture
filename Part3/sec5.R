@@ -1,0 +1,39 @@
+### 변수 설정하기 (주의사항:대소문자 구분) ========================================
+
+var1 <- "aaa"          ; var1
+var2 <- 111            ; var2
+var3 <- Sys.Date()     ; var3
+var4 <- c('a',"b","c") ; var4
+var5 <- var4 <- var3   ; var5 #덮어씌우기
+
+string1 <- "Very Eaasy R Programming"   ; string1
+string2 <- "I'm james Kim"              ; string2
+string3 <- 'He said, "I am Ironman"'    ; string3
+string4 <- "He said, \"I am Ironman\"." ; string4
+
+comp <- c(1,'2') ; comp # 1도 '1'로 출력된다.
+class(comp) #자동 형 변환: 숫자(numeric)<문자
+
+
+### 변수에 연속적인 값 대입하기 ===================================================
+
+seq1  <- 1:5     ; seq1 #숫자 가능
+seq2  <- 'a':'f' ; seq2 #문자 불가능
+date1 <- seq(from=as.Date('1992-01-28'),to=as.Date('2019-11-07'),by='year')  ;date1
+date2 <- seq(from=as.Date('2019-05-30'),to=as.Date('2019-11-07'),by='month') ;date2
+date3 <- seq(from=as.Date('2019-05-30'),to=as.Date('2019-11-07'),by=1)       ;date3
+class(date1)
+
+
+### 생성한 변수 확인하기 objects() ================================================
+
+objects()
+.hidden <- 3 #점(.)으로 시작하면, Values창에 나타나지 않는다.
+.hidden
+
+
+### 변수 제거하기 rm(list=ls()) ============================================================
+
+rm(list=ls()) #모든변수 제거(.hidden은 제거에서 제외)
+rm(string1)   #선택변수 제거
+ls()          #변수목록 보기
