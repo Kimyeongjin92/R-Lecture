@@ -4,7 +4,7 @@
 # Tools - Global Options - Default working directory설정하기 (Data폴더에)
 
 ###===============================================================================
-### 파일 이름 확인하기 [list.files()] ============================================
+### 파일 이름 확인하기 list.files() ============================================
 ###===============================================================================
 
 list.files()            # 현재 활용가능한 데이터 목록
@@ -13,7 +13,7 @@ list.files(all.files=T) # 숨김파일까지 전부 보여줌 ex) .prorile
 
 
 ###===============================================================================
-### 텍스트 파일 읽기 [ scan() 함수, input() ] ====================================
+### 텍스트 파일 읽기 scan() 함수, input()  =======================================
 ###===============================================================================
 
 scan1 <- scan('scan_1.txt')         ; scan1 #
@@ -37,7 +37,7 @@ input5
 
 
 ###===============================================================================
-### 텍스트 파일 읽기 [read.table( , Skip / nrows )] ==============================
+### 텍스트 파일 읽기  read.table( , Skip / nrows )  ==============================
 ###===============================================================================
 
 fruits  <- read.table('fruits.txt')            ; fruits
@@ -52,12 +52,60 @@ f2bottom<- read.table('fruits_2.txt',skip=3)   ; f2bottom #이런 방식으로
 
 
 ###===============================================================================
-### csv 파일 읽기 read.csv(파일명.csv) ===========================================
+### csv 파일 읽기  read.csv(파일명.csv)  =========================================
 ###===============================================================================
 
-fruits5 <- read.csv('fruits_3.csv') ; fruits5 #데이터사이에 쉼표(,)가 있으면 편하다.
+fruits5 <- read.csv('fruits_3.csv') ; fruits5 #csv를 txt로 보면 사이사이에 쉼표(,)로 구분됨.
 fruits6 <- read.csv('fruits_4.csv') ; fruits6 #txt와 다르게 csv는 header=T가 default 되어있음.
 fruits6 <- read.csv('fruits_4.csv',header=F) ; fruits6
+label  <- c('NO','NAME','PRICE','QTY')
+fruit7 <- read.csv('fruits_4.csv',header=F,col.names=label)
+
+
+###===============================================================================
+### 원하는 데이터를 SQL쿼리로 불러오기  read.csv.sql() ===========================
+###===============================================================================
+
+install.packages('googleVis')
+install.packages("sqldf")
+library(googleVis)
+library(sqldf)
+
+Fruits
+write.csv(Fruits, 'Fruits_sql.csv',quote=F,row.names=F) #quote:문자열 표시 생략/ row 행 번호 제거. 
+fruits_2 <- read.csv.sql('Fruits_sql.csv',sql='SELECT * FROM file WHERE Year = 2008') ; fruits_2
+
+
+###===============================================================================
+### 엘셀 읽기 1. loadWorkbook, readWorksheet, read.delim =========================
+###===============================================================================
+
+install.packages("XLConnect")
+library(XLConnect)
+
+data1 <- loadWorkbook('fruits_6.xls',create=T)
+data2 <- readWorksheet(data1,sheet="sheet1",startRow=1,endRow=8,startCol=1,endCol=5) ;data2
+#startRow : endRow : startCol : endCol : 엑셀의 원하는 부분을 읽기위한 명령어
+
+fruits6 <- read.delim("clipboard",header=T) # 엑셀의 원하는 셀을 클립보드에 복사후 
+fruits6
+
+
+###===============================================================================
+### 엘셀 읽기 2.  read_excel()  ==================================================
+###===============================================================================
+
+#https://rfriend.tistory.com/313 참고
+install.packages("readxl")
+library(readxl)
+
+fruits7 <- read_excel('fruits_6.xls',        # path
+                       sheet     = "Sheet1", # sheet name to read from
+                       range     = "A2:D6",  # cell range to read from
+                       col_names = TRUE,     # TRUE to use the first row as column names
+                       col_types = "guess",  # guess the types of columns
+                       na = "NA")            # Character vector of strings to use for missing values
+
 
 
 
