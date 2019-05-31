@@ -60,7 +60,23 @@ myfunc2(-3)
 ###==================    연습문제(401page)   =====================
 ###===============================================================
 
+func_test <- function(x,y){
+  z = x-y 
+  return(z)
+}
+func_test(3,2)
+func_test(2,3)
 
+func_test <- function(x,y){
+  z = x-y 
+  return(abs(z))
+}
+func_test(3,2)
+func_test(2,3)
+
+
+## https://gojs.net/latest/samples/euler.html 여러 그래프
+## https://stackoverflow.com/questions/34539268/plot-points-on-a-sphere-in-r 구만들기
 
 
         
