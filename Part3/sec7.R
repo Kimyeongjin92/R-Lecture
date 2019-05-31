@@ -75,9 +75,10 @@ Fruits
 write.csv(Fruits, 'Fruits_sql.csv',quote=F,row.names=F) #quote:문자열 표시 생략/ row 행 번호 제거. 
 fruits_2 <- read.csv.sql('Fruits_sql.csv',sql='SELECT * FROM file WHERE Year = 2008') ; fruits_2
 
-
+fruits_2 <- subset(Fruits, Fruits$Year=2008)
+fruits_2
 ###===============================================================================
-### 엘셀 읽기 1. loadWorkbook, readWorksheet, read.delim =========================
+### 엑셀 읽기 1. loadWorkbook, readWorksheet, read.delim =========================
 ###===============================================================================
 
 install.packages("XLConnect")
@@ -92,7 +93,7 @@ fruits6
 
 
 ###===============================================================================
-### 엘셀 읽기 2.  read_excel()  ==================================================
+### 엑셀 읽기 2.  read_excel()  ==================================================
 ###===============================================================================
 
 #https://rfriend.tistory.com/313 참고
