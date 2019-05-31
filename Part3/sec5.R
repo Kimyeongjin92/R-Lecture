@@ -14,7 +14,7 @@ string3 <- 'He said, "I am Ironman"'    ; string3
 string4 <- "He said, \"I am Ironman\"." ; string4
 
 comp <- c(1,'2') ; comp # 1도 '1'로 출력된다.
-class(comp) #자동 형 변환: 숫자(numeric)<문자
+class(comp) #자동 형 변환: 숫자(numeric) 보다 문자가 강하다.
 
 
 ###===================================================================================
