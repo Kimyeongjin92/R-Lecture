@@ -46,6 +46,7 @@ ddply(fruits,'name',transform,sum_qty=sum(qty),pct_qty=(100*qty)/sum(qty))
 
 install.packages('dplyr')
 library(dplyr)
+mtcars #dplyr에서 갖고있는 데이터셋
 
 data1 <- read.csv("2013년_프로야구선수_성적.csv")      ; data1
 data2 <- filter(data1,경기>120)                        ; data2
