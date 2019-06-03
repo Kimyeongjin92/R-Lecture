@@ -61,11 +61,14 @@ str_split(fruits,"/") # 데이터셋을 지정된 기호로 분리하는 함수.
 
 str_sub() 함수
 fruits
-str_sub(fruits,start=1,end=3)  # "app"
-str_sub(fruits,start=6,end=9)  # "/ban"
-str_sub(fruits,start=-5)       # -는 뒤에서부터 시작.
-str_sub(fruits,start=-5,end=-2)
+str_sub(fruits,start=1,end=3)   # "app"
+str_sub(fruits,start=6,end=9)   # "/ban"
+str_sub(fruits,start=-5)        # -는 뒤에서부터 시작.
+str_sub(fruits,start=-5,end=-2) #substr(a,1,3) 이것도 가능.
 
 str_trim('  apple banana berry ')  # white space에 해당되는 앞 뒤의 공백을 제거.
 str_trim('\t apple banana berry ')
 str_trim('   apple banana berry  \n   apple banana berry  ')
+
+
+
