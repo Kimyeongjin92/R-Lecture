@@ -19,20 +19,20 @@ list.files(all.files=T) # 숨김파일까지 전부 보여줌 ex) .prorile
 scan1 <- scan('scan_1.txt')         ; scan1 #
 scan2 <- scan('scan_2.txt')         ; scan2 # 1.00과 같은 소수점을 지워버림
 scan2 <- scan('scan_2.txt',what='') ; scan2 # what='' 소수점까지 읽어줌.
-scan3 <- scan('scan_3.txt',what='') ; scan3 
+scan3 <- scan('scan_3.txt',what='') ; scan3 # 문자는 what을 해주지 않으면 읽지 못한다.
 scan4 <- scan('scan_4.txt',what='') ; scan4 # 문자, 숫자가 섞여있을 경우 문자로 출력.
 
 input  <- scan()                            # Console 창에 직접입력해서 데이터를 만듦.
-input
-input2 <- scan(what="")                     # 
+input                                       # 숫자
+input2 <- scan(what="")                     # 문자는 what='' 띄어쓰기 = items를 따로따로 분류
 input2
 
-input3 <- readline()                        #consol창에 입력 : a quick brown fox
+input3 <- readline()                        # 한줄 길게 입력시 consol창에 입력 : a quick brown fox 
 input3
 
-input4 <- readline("a quick brown fox")
+input4 <- readline("a quick brown fox")     # 이렇게도 입력 가능
 
-input5 <- readLines('scan_4.txt')
+input5 <- readLines('scan_4.txt')           
 input5
 
 
@@ -42,13 +42,13 @@ input5
 
 fruits  <- read.table('fruits.txt')            ; fruits
 fruits  <- read.table('fruits.txt',header=T)   ; fruits  # header=T: 열 이름으로 설정
-fruits2 <- read.table('fruits_2.txt')          ; fruits2 # #과 같은 주석은 빼고 읽는다.
+fruits2 <- read.table('fruits_2.txt')          ; fruits2 # 내용의 #과 같은 주석은 빼고 읽는다.
 fruits3 <- read.table('fruits_2.txt',skip=2)   ; fruits3 # SKIP은 #과 같은 주석이 포함되어 제거된다.
-fruits4 <- read.table('fruits_2.txt',nrows=2)  ; fruits4
+fruits4 <- read.table('fruits_2.txt',nrows=2)  ; fruits4 # 원하는 행만 가져온다 주석은 생략.
 
 f2top   <- read.table('fruits_2.txt',nrows=2)  ; f2top    
 f2bottom<- read.table('fruits_2.txt',skip=3)   ; f2bottom #이런 방식으로 
-# 큰 데이터를 1~100(nrows=100), 101~200(skip=100, nrows=100), 201~300(skip=200)로 나눌 수 있다.
+# 큰 데이터를 1~100(nrows=100), 101~200(skip=100, nrows=200), 201~300(skip=200)로 나눌 수 있다.
 
 
 ###===============================================================================
