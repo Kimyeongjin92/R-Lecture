@@ -28,12 +28,6 @@ while (no<=10){
   print(no)
 }
 
-#약수
-no <- 0
-while (no<=10){
-  no<-no+1
-  print(no)
-}
 
 ###==========================================
 ### for 반복문  ===========
@@ -156,3 +150,28 @@ getDenominator <- function(x){
   return(den)
 }
 getDenominator(60)
+
+########################
+#  fo loop 추가
+########################
+
+#3의 배수 더하기
+sum<-0
+for(i in seq(3,10,3)){
+  sum <- sum +i
+}
+print(sum)
+
+#3의 배수
+for(i in seq(3,100,3)){
+  print(i)
+}
+
+for(i in seq(1,0,1)){
+  print(i)
+}
+  
+
+  
+  
+  
