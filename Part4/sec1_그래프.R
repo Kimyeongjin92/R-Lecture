@@ -1,6 +1,9 @@
-install.packages("plotly")
-library(plotly)
+# [빅데이터를 활용한 스마트 데이터 전문가 양성과정]
+# 2019-06-07-(금) / 448page
 
+###============================================================
+### plot, barplot, pie ==============================
+###============================================================
 
 # 그래픽 기초
 setwd("d:/dudwlsrla92/R_Data_Analysis/Part4")
@@ -177,7 +180,7 @@ pie(p1,radius=1,init.angle = 90,
 pct  <- round(p1/sum(p1)*100,1)
 lab1 <- paste(pct," %")
 pie(p1,radius=1,init.angle=90,col=rainbow(length(p1)),
-    label=lab)
+    label=lab1)
 legend(1,1.1,c("Week 1","Week 2","Week 3","Week 4"),
        cex=0.5,fill=rainbow(length(p1)))
 
