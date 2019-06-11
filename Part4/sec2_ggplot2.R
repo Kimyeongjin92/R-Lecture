@@ -320,7 +320,18 @@ ggplot(cut,aes(x=cut,y=price_mean))+
   ylim(0,5000)
 
 # 3) 3번문제는 cut과 color를 따로 해서 grid로 합침..ㄷㄷ..
-
+diamonds %>%
+  group_by(cut,color) %>%
+  summarise(mean_cut_color_price = mean(price)) %>% 
+  arrange(desc(mean_cut_color_price)) %>%
+  ggplot(aes(x=color, y=mean_cut_color_price, fill=color)) +
+  geom_bar(stat="identity") +
+  facet_wrap(~cut) +
+  theme_bw() +
+  labs(x="색상", y="가격") +
+  theme(legend.position = "none") +
+  ggtitle("커팅 방법에 따른 가격 변화") +
+  theme(plot.title = element_text(family = "serif", face = "bold", hjust = 0.5, size = 15, color = "black"))
 #ggplot(diamonds, aes(x=price))+geom)histogram(bins=10)+facet_wrap(-cut,)
 #grid.arrange(gcut,gcolor
        

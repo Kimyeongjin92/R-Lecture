@@ -92,8 +92,7 @@ ggplot(a, aes(x=class,y=cty ,group=class,fill=class))+
 #2) cut에 따른 가격의 변화를 보여주는 그래프를 작성하세요.<br>
 #3) cut에 따른 가격의 변화를 보여주는 그래프를 작성하세요.<br>
 ```{r}
-library(ggplot2)
-library(dplyr)
+library(gridExtra)
 
 ### 연습문제 7
 diamonds
@@ -114,15 +113,25 @@ ggplot(cut,aes(x=cut,y=price_mean,fill=cut))+
   ylim(0,5000)
 
 # 3) 3번문제는 cut(2번)과 color를 따로 해서 grid
+cut <- diamonds %>% 
+  select(cut,price) %>% 
+  group_by(cut) %>% 
+  summarise(price_mean=mean(price,na.rm=T))
+
+cut2 <- ggplot(cut,aes(x=cut,y=price_mean,fill=cut))+
+  geom_bar(stat="identity",color="black")+
+  ggtitle("7번(2) cut에 따른 가격의 변화 ")+
+  ylim(0,5000)
+
 color <- diamonds %>% 
   select(color,price) %>% 
   group_by(color) %>% 
   summarise(price_mean=mean(price,na.rm=T))
 
-ggplot(color,aes(x=color,y=price_mean,fill=color))+
+color2 <- ggplot(color,aes(x=color,y=price_mean,fill=color))+
   geom_bar(stat="identity",color="black")
 
-#grid.arrange(cut2,color2,ncol=2, top="cut 과 color")
+grid.arrange(cut2,color2,ncol=2, top="cut 과 color")
 
 #ggplot(diamonds, aes(x=price))+geom)histogram(bins=10)+facet_wrap(-cut,)
 #grid.arrange(gcut,gcolor)
