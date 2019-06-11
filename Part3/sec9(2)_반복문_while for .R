@@ -98,7 +98,8 @@ for (i in 1:5){
   print(line)
 }
 
-### for 연습문제.
+### for 연습문제.===============================================
+
 for3<- function(a){
   for(i in 1:3){
     if(i == i)
@@ -110,7 +111,19 @@ for3<- function(a){
 for3(3)
 
 
-### 구구단
+for (i in seq(10,30,10)) {
+  print(paste0(i,'번 학생 손드세요'))
+} 
+
+text <- NULL
+for (i in 1:10) {
+  text[i] <- paste0(i*10,'번 학생 손드세요')
+  print(text[i])
+} 
+
+text
+
+### 구구단 ====================================================
 for (i in 2:9){
   line <- str_c(i, '단')
   print(line)
@@ -121,21 +134,30 @@ for (i in 2:9){
 }
 
 ###다이아몬드 그리기
-while(T){
-  for (i in 1:4){
+while (T) { # 마름모 모양 
+  for (i in 1:4) {
     line <- ''
-    if (i!=4){
-      for (k in 1:(3-(i-1)))
-        line <- str_c(line, '')
+    if( i != 4) {
+      for (k in 1:(4-i)) { 
+        line <- paste0(line, " ")
+      }
     }
-    for (k in 1:(2*i-1))
-      line <- str_c(line, '#')
+    for (l in 1:(i*2-1)) {
+      line <- paste0(line, "#")
+    }
     print(line)
   }
   for (i in 3:1) {
-    line<-''
-    for(k in 1:)
+    line <- ''
+    for (k in 1:(4-i)) {
+      line <- paste0(line, " ")
+    }
+    for (k in 1:(i*2-1)) {
+      line <- paste0(line, "#")
+    }
+    print(line)
   }
+  break
 }
 
 ### 약수 구하는함수
