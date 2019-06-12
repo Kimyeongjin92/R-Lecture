@@ -10,8 +10,10 @@ library(extrafont)
 # 모든 글씨체는 제어판  →  글꼴 폴더에 설치가 되어 있어야 한다.
 font_import()
 y
-
 loadfonts(device="win")
+
+#원하는 글씨체 
+font_import(pattern = "")
 
 windowsFonts(malgun=windowsFont("맑은 고딕"))
 windowsFonts(headline=windowsFont("HY헤드라인M"))
@@ -85,10 +87,10 @@ data3 <- gsub("시장","",data3)
 data3 <- Filter(function(x){nchar(x) >= 2 & nchar(x) <= 6},data3)
 
 ## 5. 빈칸 제거하기(read.table로 불러 공백 제거.)
+
 write(unlist(data3),"seoul_2.txt")
 data4 <- read.table('seoul_2.txt') ; data4
 nrow(data4) #제거 확인.
-
 ## 6. 명사의 개수와 추가적으로 제거할 명사 구분.
 wordcount <- table(data4) ; wordcount
 head(sort(wordcount, decreasing=T),20)
@@ -117,13 +119,14 @@ pp <- brewer.pal(7,"RdYlGn")
 
 wordcloud(names(wordcount),
           freq=wordcount,   #
-          scale=c(5,0.5),   # 빈도가 가장 큰 단어와 가장 빈도가 작은 단어 폰트 사이 크기
+          scale=c(5,0.2),   # 빈도가 가장 큰 단어와 가장 빈도가 작은 단어 폰트 사이 크기
           rot.per=0.25,     # 90도 회정해서 보여줄 단어 비율.
           min.freq=1,       # 이 값 이상 언급된 단어만 출력.
-          max.words=100,    # 빈도 3이상 100미만 단어 표현.
+          max.words=1000,    # 빈도 3이상 100미만 단어 표현.
           random.order=F,   # (F)빈도가 큰 단어를 중앙에 두도록 함.
           random.color=F,   # (T)색상랜덤/(F)빈도수순으로 색상표현.
-          colors=palete) 
+          colors=palete,
+          family="baedal") 
 legend(0.3,1,"서울시 응답소 요청사항 분석",
        cex=0.8,
        fill=NA,

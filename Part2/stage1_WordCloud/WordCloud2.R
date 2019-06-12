@@ -42,12 +42,11 @@ tdm <- TermDocumentMatrix(corp1) ; tdm
 m   <- as.matrix(tdm)
 
 # 불필요한 단어 제거
-corp2  <- tm_map(corp1,stripWhitespace)
-corp2  <- tm_map(corp2,tolower)
-corp2  <- tm_map(corp2,removeNumbers)
-corp2  <- tm_map(corp2,removePunctuation)
-# corp2  <- tm_map(corp2,PlainTextDocument)    # 현 버전에서는 에러발생.
-sword2 <- c(stopwords('en'),'and','but','not') # 영어의 관사 대명사 접속사 등 
+corp2  <- tm_map(corp1,stripWhitespace)        # 여러개의 공백을 하나의 공백으로 변환
+corp2  <- tm_map(corp2,tolower)                # 대문자가 있을 경우 소문자로 변환
+corp2  <- tm_map(corp2,removeNumbers)          # 숫자를 제거
+corp2  <- tm_map(corp2,removePunctuation)      # 마침표,콤마,세미콜론,콜론 등의 문자 제거
+sword2 <- c(stopwords('en'),'and','but','not') # 영어의 관사 대명사 접속사 등  불용어 제거
 corp2  <- tm_map(corp2,removeWords,sword2)
 #corp2  <- tm_map(corp2,removeWords,stopwords('en'))
 
@@ -58,7 +57,6 @@ tdm2   <- TermDocumentMatrix(corp2); tdm2
 m2  <- as.matrix(tdm2) ; m2
 
 class(m2)
-
 
 colnames(m2) <- c(10,40,10) ; m2
 

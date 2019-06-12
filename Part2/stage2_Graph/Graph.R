@@ -18,6 +18,7 @@ library(KoNLP)
 library(wordcloud)
 library(stringr)
 library(ggplot2)
+library(plotrix)  # 3d 파이차트
 
 useSejongDic()
 
@@ -42,12 +43,10 @@ rev   <- read.table("jeju_2.txt")
 nrow(rev)
 wordcount <- table(rev)
 head(sort(wordcount, decreasing=T),30)
-
-View(top10)
-par(bg="white")
 top10 <- head(sort(wordcount,decreasing = T),10)
 
-# pie graph 그리기
+# pie graph 그리기 =======================================================
+
 pct <- round(top10/sum(top10)*100,1)
 
 lab <- paste(names(top10),"\n",pct,"%")
@@ -65,7 +64,55 @@ pie(top10,
     labels=lab,
     family="baedal")
 
-# ggplot으로 pie graph 그리기.
+# 3D pie graph 그리기 =======================================================
+
+library(plotrix)
+
+th_pct    <- round(top10/sum(top10)*100,1)
+th_names  <- names(top10) # 변수 이름만 가져오기.
+th_labels <- paste0(th_names,"\n","(",th_pct,")")
+
+pie3D(top10,
+      main="제주도 추천 여행 코스 Top 10",
+      col=palete,
+      cex=0.3,
+      labels=th_labels,
+      explode=0.05,
+      family="baedal")
+
+
+# barchart 그리기(1) 세로 =========================================================
+
+bp <- barplot(top10,
+        main="제주도 추천 여행 코스 TOP 10",
+        col=palete,
+        cex.names=0.7,
+        las=2,
+        ylim=c(0,25),
+        family="baedal")
+text(x = bp, y = top10*1.05, labels =paste("(",pct,"%",")"), col="black",cex=0.7)
+text(x = bp, y = top10*0.95, labels =paste(top10,"건"), col="black",cex=0.7)
+
+
+# barchart 그리기(2) 가로 =========================================================
+
+bp <- barplot(top10,
+              main="제주도 추천 여행 코스 TOP 10",
+              col=palete,
+              cex.names=0.7,
+              las=2,
+              xlim=c(0,25),
+              family="baedal",
+              horiz=T)
+text(y = bp, x = top10*0.9, labels =paste0(top10,"건"), col="black",cex=0.7)
+text(y = bp, x = top10*1.10, labels =paste0("(",pct,"%",")"), col="black",cex=0.7)
+
+
+
+### ============================================================================
+### ggplot으로 bar, pie graph 그리기. ==========================================
+### ============================================================================
+
 str(top10)
 df_top10 <- as.data.frame(top10)
 
@@ -97,16 +144,14 @@ ggplot(df_top10,aes(x='',y=Freq,fill=rev, family='baedal')) +
   geom_bar(width=1, stat='identity') +
   geom_text(aes(y=ypos, label=ylabel), color='black') +
   coord_polar("y",start=0) +
-  theme(ggtitle('제주도 추천 여행 코스 TOP10')
-  
+  ggtitle('제주도 추천 여행 코스 TOP10') +
+  theme_bw(base_family="baedal",base_size = 10) +
+  theme(plot.title = element_text(family="baedal",
+                                  face = "bold",
+                                  hjust = 0.5, 
+                                  size = 20, 
+                                  color = "darkblue"))
 
-# barchart 그리기
-barplot(top10,
-        main="제주도 추천 여행 코스 TOP 10",
-        col=palete,
-        cex.names=0.7,
-        las=2,
-        ylim=c(0,25),
-        family="baedal")
+
 
 
