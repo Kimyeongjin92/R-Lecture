@@ -18,32 +18,16 @@ vec5 <- seq(1,11,2)
 df_score <- data.frame(이름=이름,중간=중간,기말=기말)
 
 # 2) 평균이라는 필드를 추가하고 중간과 기말 시험의 평균을 구해서 할당하여라.
-평균 <- apply(df_score[,-1],1,mean) 
-df_score <- cbind(df_score, 평균)
-df_score 
+df_score$평균 <- apply(df_score[,-1],1,mean) 
+
 
 ### 3. 2번 문제에 학점이라는 필드를 만들고, 평균 성적에 따라 학점을 부여하시오.
 
-df_score$학점 <- for(평균 in df_score$평균){
-  if(평균 >= 90){
-    학점 <- C(학점,'A')
-  } else if(평균 < 90 & 평균 >= 80){
-    학점 <- C(학점,'A')
-  } else if(평균 < 80 & 평균 >= 70){
-    학점 <- C(학점,'A')
-  } else if(평균 < 70 & 평균 >= 60){
-    학점 <- C(학점,'A')
-  } else if(평균 < 60){
-    학점 <- C(학점,'A')
-    }
-}
 
- # 100 100 60 이 들어간다
-
-
-My학점 <- scan()
-My학점 <- ifelse(df_score$평균 > 90 & df_score$평균<=100, 학점 <- 'A',
-  ifelse(df_score$평균 > 80 & df_score$평균 < 90, 학점 <- 'B'))
+df_score$학점 <- ifelse(df_score$평균 >= 90 & df_score$평균<=100, 'A',
+  ifelse(df_score$평균 >= 80 & df_score$평균 < 90, 'B',
+         ifelse(df_score$평균 >= 70 & df_score$평균 < 80, 'C',
+                ifelse(df_score$평균 >= 60 & df_score$평균 < 70, 'D','F'))))
     
 
 ### 4. 양의 정수를 매개변수로 1에서부터 매개변수 값까지 홀수를 더해서 그 결과를 리턴하는 함수 oddSum을 작성 oddSum(100) for필수.
@@ -62,6 +46,7 @@ oddSum(100)
 # 1) 'setosa' 종 Sepal.Width의 Box Plot
 a<-iris[,5]=='setosa'    # setosa만 불러옴 
 setosa<-iris[a,2]        # setosa의 Width
+# setosa<-iris[(a<-iris[,5]=='setosa'),2]
 boxplot(setosa)$stat     # 2.9이하 4.4이상은 이상치
 
 # 2_1) 이상치 제거 전 평균, 표준편차
@@ -136,9 +121,10 @@ ggplot(diamonds,aes(x=clarity,fill=clarity)) +
 clarity <- diamonds %>% 
   select(clarity,price) %>% 
   group_by(clarity) %>% 
-  summarise(price_mean=mean(price,na.rm=T))
+  summarise(price_mean=mean(price,na.rm=T)) %>% 
+  arrange(desc(price_mean))
 
-ggplot(clarity,aes(x=clarity,y=price_mean,fill=clarity))+
+ggplot(clarity,aes(x=reorder(clarity, price_mean),y=price_mean,fill=clarity))+
   geom_bar(stat="identity",color="black")+
   theme_bw(base_family="baedal",base_size = 15) + 
   ggtitle("7번(2) clarity에 따른 가격의 변화 ")+
@@ -189,6 +175,4 @@ baseball %>%
                                   vjust = 2.5,
                                   size = 40, 
                                   color = "black")) 
-
-
 
