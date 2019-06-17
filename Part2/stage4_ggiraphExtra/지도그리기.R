@@ -1,8 +1,7 @@
 # [빅데이터를 활용한 스마트 데이터 전문가 양성과정]
-# 2019-06-14-(금) / 
+# 2019-06-14-(금) / 책에 없음
 
-
-# Part 2-4 지도 데이터 활용하기.
+# Part 2-4 지도 데이터 활용하기(1)
 
 ### ============================================================================
 ###  =============
@@ -32,16 +31,16 @@ head(USArrests)
 tail(USArrests)
 summary(USArrests)
 
-# 기존의 rowname을 변수로 끌고 나오기위해 tibble이 필요함
+# 기존의 rowname을 변수로 끌고 나오기위해 tibble이 필요함
 crime <- rownames_to_column(USArrests, var="state")
 
 crime$state <- tolower(crime$state)
 
-# 미국 주 지도 데이터 준비하기
+# 미국 주 지도 데이터 준비하기
 states_map <- map_data('state')
 str(states_map)
 
-# 단계 구분도 만들기
+# 단계 구분도 만들기
 ggChoropleth(data=crime,
              aes(fill=Murder,       # 색으로 표현할 변수
                  map_id=state),     # 지역 기준 변수
@@ -55,7 +54,7 @@ ggChoropleth(data=crime,
              interactive = T)       # 인터랙티브
 
 
-# 지도 4개 그리기.
+# 지도 4개 그리기.
 a <- ggChoropleth(data=crime,
              aes(fill=Rape,         # 색으로 표현할 변수
                  map_id=state),     # 지역 기준 변수
@@ -117,7 +116,7 @@ grid.arrange(a,b,c,d,ncol=2, top="미국 강력범죄")
 
 
 ### ============================================================================
-### 대한민국 시도별 인구, 결핵 환자 수 단계 구분도 만들기.,
+###  대한민국 시도별 인구, 결핵 환자 수 단계 구분도 만들기.,
 ### ============================================================================
 
 # 1) 대한민국 시도별 인구 단계 구분도 만들기
@@ -127,11 +126,11 @@ library(stringi)
 library(devtools)
 library(dplyr)
 
-# 이 패키지에 있는 깃 허브("cardiomoon/kormaps2014")를 인스톨 하겠다.
+# 이 패키지에 있는 깃 허브("cardiomoon/kormaps2014")를 인스톨 하겠다.
 devtools::install_github("cardiomoon/kormaps2014")
 library(kormaps2014)
 
-# rename(데이터, 바꿀이름 = 기존이름)
+# rename(데이터, 바꿀이름 = 기존이름)
 korpop1 <- rename(korpop1,
                   pop = 총인구_명,
                   name = 행정구역별_읍면동,)
@@ -142,7 +141,7 @@ korpop1 <- rename(korpop1, 남자_명 = 한글)
 str(changeCode(korpop1))
 head(changeCode(korpop1))
 
-# 단계 구분도 만들기
+# 단계 구분도 만들기
 ggChoropleth(data=korpop1,
              aes(fill=총인구_명,              # 색으로 표현할 변수
                  map_id=code,                 # 지역 기준 변수
@@ -150,7 +149,7 @@ ggChoropleth(data=korpop1,
              map=kormap1,                     # 지도 데이터
              interactive=T)    # 지도 데이터
 
-# 대한민국 시도별 결핵 환자 수 단계 구분도 만들기.
+# 대한민국 시도별 결핵 환자 수 단계 구분도 만들기.
 str(changeCode(tbc))
 ggChoropleth(data=tbc,
              aes(fill=NewPts,             
