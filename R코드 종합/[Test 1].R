@@ -24,10 +24,11 @@ df_score$평균 <- apply(df_score[,-1],1,mean)
 ### 3. 2번 문제에 학점이라는 필드를 만들고, 평균 성적에 따라 학점을 부여하시오.
 
 
-df_score$학점 <- ifelse(df_score$평균 >= 90 & df_score$평균<=100, 'A',
-  ifelse(df_score$평균 >= 80 & df_score$평균 < 90, 'B',
-         ifelse(df_score$평균 >= 70 & df_score$평균 < 80, 'C',
-                ifelse(df_score$평균 >= 60 & df_score$평균 < 70, 'D','F'))))
+df_score$학점 <- 
+  ifelse(df_score$평균 >= 90, 'A',
+  ifelse(df_score$평균 >= 80, 'B',
+  ifelse(df_score$평균 >= 70, 'C',
+  ifelse(df_score$평균 >= 60, 'D','F'))))
     
 
 ### 4. 양의 정수를 매개변수로 1에서부터 매개변수 값까지 홀수를 더해서 그 결과를 리턴하는 함수 oddSum을 작성 oddSum(100) for필수.
