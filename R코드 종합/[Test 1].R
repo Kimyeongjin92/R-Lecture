@@ -22,8 +22,6 @@ df_score$평균 <- apply(df_score[,-1],1,mean)
 
 
 ### 3. 2번 문제에 학점이라는 필드를 만들고, 평균 성적에 따라 학점을 부여하시오.
-
-
 df_score$학점 <- 
   ifelse(df_score$평균 >= 90, 'A',
   ifelse(df_score$평균 >= 80, 'B',
@@ -35,6 +33,7 @@ df_score$학점 <-
   oddSum <- function(limit){
     sum<-0
     for (i in 1:limit){
+  # for (i in seq(1, limit, 2))
       if (i %% 2 == 1)
         sum <- sum +i
     }
@@ -44,17 +43,26 @@ oddSum(100)
 
 ### 5. R 내장 데이터인 IRIS를 이용
 
-# 1) 'setosa' 종 Sepal.Width의 Box Plot
-a<-iris[,5]=='setosa'    # setosa만 불러옴 
-setosa<-iris[a,2]        # setosa의 Width
+# 1) 'setosa' 종 Sepal.Width의 Box Plot
 # setosa<-iris[(a<-iris[,5]=='setosa'),2]
-boxplot(setosa)$stat     # 2.9이하 4.4이상은 이상치
+# boxplot(setosa)$stat     # 2.9이하 4.4이상은 이상치
 
-# 2_1) 이상치 제거 전 평균, 표준편차
+library(ggplot2)
+library(dplyr)
+setosa <- iris %>% filter(Species == 'setosa') %>% select(Sepal.Width)
+ggplot(setosa,aes(y=Sepal.Width)) + geom_boxplot()
+summary(setosa)
+setosa$after <- ifelse(2.5 < setosa & setosa < 4.4 ,setosa, NA) 
+#&&는 결과가 한가지만 나온다. 개별적으로 다 나오게 하기위해서는 &가 하나여야한다.
+mean(setosa$Sepal.Width)   ; sd(setosa$Sepal.Width) 
+mean(setosa$after,na.rm=T) ; sd(setosa$after,na.rm=T) 
+          
+
+# 2_1) 이상치 제거 전 평균, 표준편차
 mean(setosa)  # 평균 3.428
 sd(setosa)    # 표준편차 0.3790644
 
-# 2_2) 이상치 제거 후 평균, 표준편차와 boxplot
+# 2_2) 이상치 제거 후 평균, 표준편차와 boxplot
 setosa[(setosa < 2.9)]   # 이상치 2.3
 setosa1<-setosa[(setosa != 2.3)]
 
@@ -70,12 +78,11 @@ library(ggplot2)
 library(dplyr)
 mpg %>% filter(manufacturer=='toyota') %>%
   group_by(model) %>% 
-  summarise_each(funs(mean),cty,hwy) %>%
-  arrange(desc(cty,hwy)) %>% 
+  summarise(avg=mean(cty+hwy)/2) %>%
+  arrange(desc(avg)) %>% 
   head(3)
 
-
-### 7. mpg 데이터를 이용하여 그래프를 그리시오.
+### 7. mpg 데이터를 이용하여 그래프를 그리시오.
 
 # 1) suv자동차의 시내 연비(cty)가 높은 7개 회사와 시내 연비 
 suv <- mpg %>% filter(class=='suv') %>%
@@ -89,7 +96,7 @@ suv
 # 2) 막대그래프 형식의 컬러그래프
 windowsFonts(baedal=windowsFont("배달의민족 도현"))
 
-ggplot(suv,aes(x=manufacturer,y=cty,fill=manufacturer))+
+ggplot(suv,aes(x=reorder(manufacturer,-cty),y=cty,fill=manufacturer))+
   geom_bar(stat="identity",color="black") +
   geom_hline(yintercept=seq(0,20,5),lty='dashed',size=0.1)+
   theme_bw(base_family="baedal",base_size = 15) +  
@@ -124,7 +131,7 @@ clarity <- diamonds %>%
   summarise(price_mean=mean(price,na.rm=T)) %>% 
   arrange(desc(price_mean))
 
-ggplot(clarity,aes(x=reorder(clarity, price_mean),y=price_mean,fill=clarity))+
+ggplot(clarity,aes(x=clarity,y=price_mean,fill=clarity))+
   geom_bar(stat="identity",color="black")+
   theme_bw(base_family="baedal",base_size = 15) + 
   ggtitle("7번(2) clarity에 따른 가격의 변화 ")+
